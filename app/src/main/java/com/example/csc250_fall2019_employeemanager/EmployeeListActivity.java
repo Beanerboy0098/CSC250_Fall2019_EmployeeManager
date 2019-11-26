@@ -1,12 +1,15 @@
 package com.example.csc250_fall2019_employeemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class EmployeeListActivity extends AppCompatActivity {
+
+    ListView employeeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,16 +17,13 @@ public class EmployeeListActivity extends AppCompatActivity {
         LinearLayout linearLayout = new LinearLayout(this);
 
 
-        setContentView(linearLayout);
-
-
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        this.employeeList = this.findViewById(R.id.employeeLV);
 
 
 
 
 
-        for (int i = 0; i < Core.theEmployees.size(); i++)
+        if (Core.theEmployees.size() > 0)
 
 
 
@@ -32,19 +32,9 @@ public class EmployeeListActivity extends AppCompatActivity {
         {
 
 
-            TextView holder = new TextView(this);
-
-
-            String text = Core.theEmployees.get(i).toString();
-
-
-            holder.setText(text);
-
-
-
-
-
-            linearLayout.addView(holder);
+           Core.generateNameList();
+           ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Core.theEmployeeNames);
+           this.employeeList.setAdapter(adapter);
 
 
         }
